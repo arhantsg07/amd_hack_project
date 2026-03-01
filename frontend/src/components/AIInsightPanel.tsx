@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Send, Cpu, Sparkles, X } from 'lucide-react';
+import { Terminal, Send, Cpu, Sparkles } from 'lucide-react';
 import { chatWithGraph, ChatResponse } from '../services/api';
 
 interface Message {

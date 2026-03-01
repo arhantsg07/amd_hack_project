@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import ForceGraph2D, { ForceGraphMethods, NodeObject, LinkObject } from 'react-force-graph-2d';
 import { motion } from 'framer-motion';
 import type { WorkGraph, GraphNode, GraphEdge } from '../services/api';
@@ -216,12 +216,13 @@ export default function GraphVisualizer({ graph, loading, onNodeClick }: GraphVi
                         width={dimensions.width}
                         height={dimensions.height - 56}
                         backgroundColor="transparent"
-                        nodeCanvasObject={paintNode}
+                        nodeCanvasObject={(node, ctx, globalScale) => paintNode(node as ForceNode, ctx, globalScale)}
                         linkCanvasObject={paintLink}
-                        nodePointerAreaPaint={(node: ForceNode, color, ctx) => {
-                            if (node.x === undefined || node.y === undefined) return;
+                        nodePointerAreaPaint={(node, color, ctx) => {
+                            const forceNode = node as ForceNode;
+                            if (forceNode.x === undefined || forceNode.y === undefined) return;
                             ctx.beginPath();
-                            ctx.arc(node.x, node.y, node.size * 1.5, 0, 2 * Math.PI);
+                            ctx.arc(forceNode.x, forceNode.y, forceNode.size * 1.5, 0, 2 * Math.PI);
                             ctx.fillStyle = color;
                             ctx.fill();
                         }}
@@ -240,6 +241,3 @@ export default function GraphVisualizer({ graph, loading, onNodeClick }: GraphVi
         </motion.div>
     );
 }
-
-// Add missing import
-import { useState } from 'react';

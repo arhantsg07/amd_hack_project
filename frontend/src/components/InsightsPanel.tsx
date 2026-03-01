@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { AlertTriangle, Users, GitPullRequest, MessageSquare, ChevronRight } from 'lucide-react';
+import { AlertTriangle, Users, GitPullRequest, MessageSquare } from 'lucide-react';
 import type { InsightsReport } from '../services/api';
 
 interface InsightsPanelProps {
@@ -46,7 +46,7 @@ export default function InsightsPanel({ insights, loading }: InsightsPanelProps)
             color: 'text-status-danger',
             bgColor: 'from-red-900/20 to-transparent',
             items: insights.bottlenecks.slice(0, 3),
-            renderItem: (item: typeof insights.bottlenecks[0]) => (
+            renderItem: (item: any) => (
                 <div key={item.task_id} className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                         <p className="font-mono text-sm text-white truncate">{item.task_id}</p>
@@ -62,12 +62,12 @@ export default function InsightsPanel({ insights, loading }: InsightsPanelProps)
             color: 'text-status-warning',
             bgColor: 'from-amber-900/20 to-transparent',
             items: insights.overload_scores.filter(s => s.risk_level !== 'low').slice(0, 3),
-            renderItem: (item: typeof insights.overload_scores[0]) => (
+            renderItem: (item: any) => (
                 <div key={item.person_id} className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-neon-cyan/20 flex items-center justify-center">
                             <span className="text-xs font-bold text-neon-cyan">
-                                {item.person_name.split(' ').map(n => n[0]).join('')}
+                                {item.person_name.split(' ').map((n: string) => n[0]).join('')}
                             </span>
                         </div>
                         <div>
@@ -85,7 +85,7 @@ export default function InsightsPanel({ insights, loading }: InsightsPanelProps)
             color: 'text-neon-amber',
             bgColor: 'from-amber-900/20 to-transparent',
             items: insights.risks.slice(0, 3),
-            renderItem: (item: typeof insights.risks[0]) => (
+            renderItem: (item: any) => (
                 <div key={item.pr_id} className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                         <p className="font-mono text-sm text-white truncate">{item.pr_id}</p>
@@ -101,7 +101,7 @@ export default function InsightsPanel({ insights, loading }: InsightsPanelProps)
             color: 'text-purple-400',
             bgColor: 'from-purple-900/20 to-transparent',
             items: insights.shadow_tasks.slice(0, 3),
-            renderItem: (item: typeof insights.shadow_tasks[0]) => (
+            renderItem: (item: any) => (
                 <div key={item.thread_id} className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                         <p className="font-mono text-sm text-white">#{item.channel}</p>
@@ -148,7 +148,7 @@ export default function InsightsPanel({ insights, loading }: InsightsPanelProps)
                     {/* Items */}
                     <div className="p-4 space-y-3">
                         {section.items.length > 0 ? (
-                            section.items.map((item) => section.renderItem(item))
+                            section.items.map((item: any) => section.renderItem(item))
                         ) : (
                             <p className="text-xs text-gray-500 text-center py-2">No issues detected</p>
                         )}
